@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致张加劲老师的一封信</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Changed font-family to 'Ma Shan Zheng' with fallbacks */
+            font-family: 'Ma Shan Zheng', cursive, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            color: #333;
+            line-height: 1.8;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-out;
+            position: relative; /* Needed for pseudo-elements */
+            /* Added subtle border effect */
+            border: 1px solid #e0e7e8; /* A very light, subtle border */
+        }
+
+        /* Added a delicate inner border using pseudo-element */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px dashed #cfd8dc; /* A light dashed inner border for elegance */
+            border-radius: 15px; /* Slightly smaller radius than container */
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2c5282;
+            animation: slideInLeft 1s ease-out;
+        }
+        /* Adjusted for "敬爱的张老师" to be left-aligned */
+        .header p {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #4a5568;
+            text-align: left; /* Make it left-aligned */
+            animation: slideInRight 1s ease-out 0.3s;
+        }
+        .paragraph {
+            margin-bottom: 25px;
+            text-indent: 2em;
+            animation: floatUp 1s ease-out forwards;
+            opacity: 0; /* Initially hidden */
+        }
+        .signature {
+            text-align: right;
+            margin-top: 50px;
+            font-style: italic;
+            color: #718096;
+            animation: fadeIn 1.5s ease-out 2s;
+        }
+        .signature .name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .signature .date {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header p { /* Target the salutation paragraph */
+                font-size: 1.2rem;
+            }
+            .paragraph {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Music control button */
+        .music-control-button {
+            position: fixed; /* 固定位置 */
+            bottom: 20px;    /* 离底部20px */
+            right: 20px;     /* 离右侧20px */
+            background-color: #a7d9b5; /* 淡绿色/蓝色 */
+            color: #2c5282; /* 深色文字以对比 */
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #82b09a;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000; /* 确保它在其他内容之上 */
+        }
+
+        .music-control-button:hover {
+            background-color: #82b09a;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .music-control-button .icon {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>致张加劲老师的一封信</h1>
+        <p>敬爱的张老师：</p>
+    </header>
+    <section class="content" id="letterContent">
+        <p class="paragraph" style="animation-delay: 0.5s;">
+            提笔写下这封信时，我的心中充满感激与不舍。十个月的微积分学习时光，在您春风化雨般的教导中悄然流逝，留下的不仅是知识，更是一段难忘的师生情谊。
+        </p>
+        <p class="paragraph" style="animation-delay: 1.0s;">
+            记得初学微积分时，那些晦涩难懂的符号和公式让我望而生畏。是您用温暖的笑容和耐心的讲解，为我打开了数学世界的大门。您总说："数学这东西，学懂了就有意思"，这句朴实无华的话语，却道出了学习的真谛。在您的课堂上，抽象的极限概念变得生动，复杂的微分方程也不再可怕。特别是课间播放的《我的楼兰》，悠扬的旋律让严谨的数学课堂多了几分诗意，这份独特的教学艺术让我至今难忘。
+        </p>
+        <p class="paragraph" style="animation-delay: 1.5s;">
+            您独特的教学方式总能给我启迪。印象最深的是那次深夜解题，我苦思冥想不得其解，您的一句"悟了再睡"让我明白，真正的学习需要静心沉淀。您在学习通众多班级中帮我找回试卷的身影，您坚持引导而非直接告知答案的教学态度，都让我深刻体会到"学贵得师，亦贵得友"的真谛。您不仅教会我微积分知识，更培养了我独立思考的能力，这份收获将使我受益终身。
+        </p>
+        <p class="paragraph" style="animation-delay: 2.0s;">
+            课堂之外，您更像一位知心朋友。我们分享过校园最美的晚霞，讨论过青城山的旅行攻略；分享过碧水蓝天的辽阔，映日荷花的绚烂；分享过晨起红日的蓬勃，皎洁明月的清辉......您对生活的热爱与对教学的专注同样令人敬佩。
+        </p>
+        <p class="paragraph" style="animation-delay: 2.5s;">
+            虽然课程即将结束，但您教给我的不仅是微积分知识，更是一种思维方式和生活态度。未来遇到困难时，想起您的教诲，我便能重拾勇气。您用言传身教告诉我：一位好老师不仅要传授知识，更要点燃学生心中的求知之火。
+        </p>
+        <p class="paragraph" style="animation-delay: 3.0s;">
+            纸短情长，师恩难忘。在这即将短暂分别的时刻，我想用我最喜欢的一首诗与您共勉："花未全开月未圆，半山微醉尽余欢。何须多虑盈亏事，终归小满胜万全。"这首诗道出了我对人生的粗浅理解，也寄托着对您的祝福。人生如花未全开月未圆，适度的满足好似半山微醉，既有欢愉又不失理智。您教会我的，不仅是追求知识的圆满，更是享受求知过程中的每一份收获与成长。
+        </p>
+        <p class="paragraph" style="animation-delay: 3.5s;">
+            您不仅是我学术上的引路人，更是我人生路上的明灯。愿您永远保持这份教书育人的热忱，愿您的生活如您最爱的数学般优雅从容。期待未来能与您分享更多成长的喜悦，也盼望有机会能再次聆听您的教诲。感恩相遇！
+        </p>
+    </section>
+
+    <footer class="signature">
+        <p>您的学生 小黄 敬上</p>
+        <p>2025年6月</p>
+    </footer>
+</div>
+
+<audio id="backgroundMusic" loop autoplay>
+    <source src="../C418 - Minecraft.mp3" type="audio/mpeg">
+    您的浏览器不支持音频元素。
+</audio>
+
+<button id="musicToggleButton" class="music-control-button">
+    <span class="icon">♪</span>
+    <span id="musicStatusText">暂停音乐</span>
+</button>
+
+<script>
+    const audio = document.getElementById('backgroundMusic');
+    const musicToggleButton = document.getElementById('musicToggleButton');
+    const musicStatusText = document.getElementById('musicStatusText');
+    let isPlaying = true; // 初始状态设为 true，因为尝试自动播放
+
+    // 将音量设置为最大 (1.0)
+    audio.volume = 1.0;
+
+    // 尝试立即播放音频
+    // 这包裹在一个 'DOMContentLoaded' 事件监听器中，确保 DOM 加载完成后再执行
+    // 尽管如此，大多数浏览器仍会阻止没有用户交互的自动播放。
+    document.addEventListener('DOMContentLoaded', () => {
+        audio.play()
+            .then(() => {
+                // 自动播放成功
+                musicStatusText.textContent = '暂停音乐';
+                isPlaying = true;
+            })
+            .catch(error => {
+                // 自动播放失败，很可能是由于浏览器策略
+                console.warn('自动播放音乐失败，需要用户交互:', error);
+                musicStatusText.textContent = '播放音乐'; // 如果自动播放失败，将文本重置为“播放音乐”
+                isPlaying = false;
+            });
+    });
+
+    musicToggleButton.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            musicStatusText.textContent = '播放音乐';
+            isPlaying = false;
+        } else {
+            audio.play()
+                .then(() => {
+                    musicStatusText.textContent = '暂停音乐';
+                    isPlaying = true;
+                })
+                .catch(error => {
+                    console.error('音乐播放失败:', error);
+                    musicStatusText.textContent = '播放失败 (点击以重试)';
+                });
+        }
+    });
+
+    // 此监听器处理音频因其他原因停止的情况，确保如果它正在播放则尝试循环。
+    audio.addEventListener('ended', () => {
+        // 如果音频播放结束，并且它之前是播放状态，则尝试重新播放
+        if (isPlaying) {
+            audio.currentTime = 0; // 重置到开头
+            audio.play();
+        }
+    });
+</script>
+</body>
+</html>
