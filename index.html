@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一封信</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Ma Shan Zheng', cursive, sans-serif;
+      background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+      color: #333;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1.5s ease-out;
+      position: relative;
+      border: 1px solid #e0e7e8;
+      display: none;
+    }
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 10px; left: 10px; right: 10px; bottom: 10px;
+      border: 1px dashed #cfd8dc;
+      border-radius: 15px;
+      pointer-events: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header { text-align: center; margin-bottom: 40px; position: relative; }
+    .header h1 {
+      font-size: 2.5rem; font-weight: 600; color: #2c5282;
+      animation: slideInLeft 1s ease-out;
+    }
+    .header p {
+      margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; color: #4a5568;
+      text-align: left;
+      animation: slideInRight 1s ease-out 0.3s;
+    }
+    .paragraph {
+      margin-bottom: 25px; text-indent: 2em;
+      animation: floatUp 1s ease-out forwards;
+      opacity: 0;
+    }
+    .signature {
+      text-align: right; margin-top: 50px; font-style: italic; color: #718096;
+      animation: fadeIn 1.5s ease-out 2s;
+    }
+    .signature .name { font-size: 1.2rem; font-weight: 600; margin-top: 10px; }
+    .signature .date { font-size: 1rem; margin-top: 5px; }
+
+    @keyframes slideInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes floatUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      .container { margin: 20px; padding: 20px; }
+      .header h1 { font-size: 2rem; }
+      .header p { font-size: 1.2rem; }
+      .paragraph { margin-bottom: 20px; }
+    }
+
+    /* 密码输入界面 */
+    .gate {
+      min-height: 80vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      animation: fadeIn 1s ease-out;
+      padding: 20px;
+    }
+    .gate h2 { font-size: 1.8rem; color: #2c5282; margin-bottom: 24px; }
+    .gate input {
+      font-family: Inter, sans-serif;
+      font-size: 1rem;
+      padding: 12px 16px;
+      border: 1px solid #cfd8dc;
+      border-radius: 10px;
+      width: 260px;
+      max-width: 80vw;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .gate input:focus { border-color: #2c5282; }
+    .gate button {
+      margin-top: 16px;
+      padding: 10px 32px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      color: #fff;
+      background-color: #2c5282;
+      border: none; border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .gate button:hover { background-color: #3a6ea5; transform: translateY(-1px); }
+    .gate button:disabled { opacity: 0.6; cursor: wait; transform: none; }
+    .gate .hint { margin-top: 14px; color: #c00; font-size: 0.95rem; min-height: 1.4em; }
+
+    .music-control-button {
+      position: fixed; bottom: 20px; right: 20px;
+      background-color: #a7d9b5; color: #2c5282;
+      padding: 10px 15px; border-radius: 10px;
+      border: 1px solid #82b09a; cursor: pointer;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease-in-out;
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .music-control-button:hover { background-color: #82b09a; color: #fff; transform: translateY(-2px); }
+    .music-control-button .icon { margin-right: 8px; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+<!-- 密码输入界面 -->
+<div class="gate" id="gate">
+  <h2>这里有一封信</h2>
+  <input type="password" id="pwInput" placeholder="请输入访问密码" autocomplete="off">
+  <button id="unlockBtn">开启</button>
+  <p class="hint" id="hint"></p>
+</div>
+
+<!-- 信件容器：内容由解密后动态注入，源码中不存在明文 -->
+<div class="container" id="letterBox"></div>
+
+<audio id="backgroundMusic" loop>
+  <source src="C418 - Minecraft.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicToggleButton" class="music-control-button">
+  <span class="icon">♪</span>
+  <span id="musicStatusText">暂停音乐</span>
+</button>
+
+<script>
+  // ==================== 加密内容 ====================
+  // 格式: salt.iv.ciphertext（均为 base64），由 encrypt.js 生成
+  // 密码不在源码中；密码即解密密钥，输错则数学上无法还原内容
+  const ENCRYPTED = "ZQa0LrTDdNOGcETuAHlbDQ==.T5EmjJKfv44BVPY6.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";
+  // =================================================
+
+  const b64ToBuf = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+  async function decrypt(password) {
+    const [saltB64, ivB64, ctB64] = ENCRYPTED.split('.');
+    const salt = b64ToBuf(saltB64);
+    const iv = b64ToBuf(ivB64);
+    const ct = b64ToBuf(ctB64);
+
+    const baseKey = await crypto.subtle.importKey(
+      'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']
+    );
+    const key = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' },
+      baseKey,
+      { name: 'AES-GCM', length: 256 },
+      false, ['decrypt']
+    );
+    // 密码错误时 AES-GCM 校验失败，这里会抛出异常
+    const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
+    return new TextDecoder().decode(plainBuf);
+  }
+
+  const gate = document.getElementById('gate');
+  const pwInput = document.getElementById('pwInput');
+  const unlockBtn = document.getElementById('unlockBtn');
+  const hint = document.getElementById('hint');
+  const letterBox = document.getElementById('letterBox');
+  const audio = document.getElementById('backgroundMusic');
+  const musicToggleButton = document.getElementById('musicToggleButton');
+  const musicStatusText = document.getElementById('musicStatusText');
+  let isPlaying = false;
+
+  async function tryUnlock() {
+    const pw = pwInput.value.trim();
+    if (!pw) { hint.textContent = '请输入密码'; return; }
+    unlockBtn.disabled = true;
+    hint.textContent = '';
+    try {
+      const html = await decrypt(pw);
+      // 解密成功：注入信件内容，切换界面
+      letterBox.innerHTML = html;
+      gate.style.display = 'none';
+      letterBox.style.display = 'block';
+      document.title = letterBox.querySelector('h1')?.textContent || document.title;
+
+      // 借助本次点击（用户交互）启动背景音乐，成功率远高于 autoplay
+      musicToggleButton.style.display = 'flex';
+      audio.volume = 1.0;
+      audio.play().then(() => {
+        isPlaying = true;
+        musicStatusText.textContent = '暂停音乐';
+      }).catch(() => {
+        isPlaying = false;
+        musicStatusText.textContent = '播放音乐';
+      });
+    } catch (e) {
+      hint.textContent = '密码错误，请重试';
+      pwInput.select();
+    } finally {
+      unlockBtn.disabled = false;
+    }
+  }
+
+  unlockBtn.addEventListener('click', tryUnlock);
+  pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+
+  musicToggleButton.addEventListener('click', () => {
+    if (isPlaying) {
+      audio.pause();
+      musicStatusText.textContent = '播放音乐';
+      isPlaying = false;
+    } else {
+      audio.play().then(() => {
+        musicStatusText.textContent = '暂停音乐';
+        isPlaying = true;
+      }).catch(() => {
+        musicStatusText.textContent = '播放失败 (点击以重试)';
+      });
+    }
+  });
+</script>
+</body>
+</html>
